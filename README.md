@@ -14,7 +14,7 @@ A simple pomodoro timer built with [Vue.js](https://vuejs.org/).
 
 ## Demo
 
-https://timer.mszook.art/
+https://pomodoro.mszook.art/
 
 ![preview](./img/prev.png)
 
