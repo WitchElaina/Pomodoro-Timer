@@ -2,19 +2,19 @@
     <div id="top" :class="{inactive:!props.showOptions}">
         <div class="option">
             <label for="workTime">Work Time</label>
-            <input type="number" id="workTime" v-model="props.options.workTime">
+            <input type="number" id="workTime" v-model="props.options.workTime" min="1" @input="validate">
         </div>
         <div class="option">
             <label for="shortBreakTime">Short Break Time</label>
-            <input type="number" id="shortBreakTime" v-model="props.options.shortBreakTime">
+            <input type="number" id="shortBreakTime" v-model="props.options.shortBreakTime" min="1" @input="validate">
         </div>
         <div class="option">
             <label for="longBreakTime">Long Break Time</label>
-            <input type="number" id="longBreakTime" v-model="props.options.longBreakTime">
+            <input type="number" id="longBreakTime" v-model="props.options.longBreakTime" min="1" @input="validate">
         </div>
         <div class="option">
             <label for="turns">Turns</label>
-            <input type="number" id="turns" v-model="props.options.turns">
+            <input type="number" id="turns" v-model="props.options.turns" min="1" @input="validate">
         </div>
     </div>
 
@@ -22,6 +22,21 @@
 
 <script setup>
     const props = defineProps(['options', 'showOptions']);
+
+    const validate = () => {
+        if (props.options.workTime < 1) {
+            props.options.workTime = 1;
+        }
+        if (props.options.shortBreakTime < 1) {
+            props.options.shortBreakTime = 1;
+        }
+        if (props.options.longBreakTime < 1) {
+            props.options.longBreakTime = 1;
+        }
+        if (props.options.turns < 1) {
+            props.options.turns = 1;
+        }
+    }
 </script>
 
 <style scoped>
