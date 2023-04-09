@@ -4,7 +4,7 @@ A simple pomodoro timer built with [Vue.js](https://vuejs.org/).
 
 ## Features
 
-- [ ] Set a custom work and break time.
+- [x] Set a custom work and break time.
 - [ ] Send a notification when the timer is done.
 - [ ] Play a sound when the timer is done.
 - [ ] Add a todo list.
