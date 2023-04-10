@@ -41,9 +41,7 @@
 
 <style scoped>
     .inactive {
-        visibility: hidden;
-        width: 0;
-        height: 0;
+        opacity: 0;
     }
 
     #top {
@@ -71,4 +69,6 @@
         text-align: right;
         border: none;
     }
+
+
 </style>

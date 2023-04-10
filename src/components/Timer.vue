@@ -1,5 +1,5 @@
 <template xmlns="http://www.w3.org/1999/html">
-    <div id="timer">{{curTime}}</div>
+    <div id="timer">{{curTimeStr}}</div>
     <div id="state-info">
         <div id="state" class="info">{{isWorking ? 'Working' : 'Resting'}}</div>
         <div id="turn" class="info"># {{turnCount}}</div>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import {onMounted, ref, computed, reactive, watch} from "vue";
+    import {onMounted, ref, computed, reactive, watch} from "vue";
     import Options from "@/components/Options.vue";
 
     const showOptions = ref(false);
@@ -42,8 +42,15 @@ import {onMounted, ref, computed, reactive, watch} from "vue";
     const curTime = computed(() => {
         const minutes = Math.floor(timeRemain.value / 60);
         const seconds = timeRemain.value % 60;
-        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        return {min: minutes, sec: seconds};
     });
+
+    const curTimeStr = computed(() => {
+        const minutes = Math.floor(timeRemain.value / 60);
+        const seconds = timeRemain.value % 60;
+        return `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+    });
+
 
     const resetTimer = () => {
         timeRemain.value = options.workTime * 60;
@@ -73,10 +80,29 @@ import {onMounted, ref, computed, reactive, watch} from "vue";
             resetTimer();
     }, {deep: true})
 
+    const windowTitle = computed(() => {
+        let ret = ''
+        if (isPaused.value) {
+            ret += 'Paused - '
+        }
+        else {
+            if (curTime.value.min < 1)
+                ret += ( curTime.value.sec + 's - ' );
+            else
+                ret += ( curTime.value.min + 'min - ' );
+        }
+        ret += isWorking.value ? 'Working' : 'Resting'
+        return ret;
+    })
+
+    watch(windowTitle, () => {
+        document.title = windowTitle.value;
+    })
+
 
 </script>
 
-<style scoped>
+<style>
     * {
         box-sizing: border-box;
         font-family: 'Product Sans', 'Roboto', sans-serif;
@@ -106,6 +132,7 @@ import {onMounted, ref, computed, reactive, watch} from "vue";
         display: flex;
         justify-content: center;
         margin-top: 1rem;
+
     }
 
     #buttons button {
@@ -115,6 +142,7 @@ import {onMounted, ref, computed, reactive, watch} from "vue";
         width: 10rem;
         border: none;
         border-radius: 2rem;
+        background-color: #e6e6e6;
     }
 
     #buttons button:hover {
@@ -122,5 +150,7 @@ import {onMounted, ref, computed, reactive, watch} from "vue";
         background-color: #dad3d3;
     }
 
-
+    * {
+        transition: all 0.2s ease-in-out;
+    }
 </style>

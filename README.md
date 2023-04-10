@@ -11,6 +11,7 @@ A simple pomodoro timer built with [Vue.js](https://vuejs.org/).
 - [ ] Dark mode.
 - [ ] Storage timer state in local storage.
 - [ ] Add a pomodoro history.
+- [x] Show state in title bar.
 
 ## Demo
 
