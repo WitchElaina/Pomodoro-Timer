@@ -99,7 +99,8 @@
     }
 
     const nextState = () => {
-        sendNotification();
+        if(options.enableNotifications)
+            sendNotification();
         isWorking.value = !isWorking.value;
         if (isWorking.value) {
             turnCount.value++;
