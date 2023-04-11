@@ -16,6 +16,10 @@
             <label for="turns">Turns</label>
             <input type="number" id="turns" v-model="props.options.turns" min="1" @input="validate">
         </div>
+        <div class="option">
+            <label for="enableNotifications">Notifications</label>
+            <input type="checkbox" id="enableNotifications" v-model="props.options.enableNotifications">
+        </div>
     </div>
 
 </template>
@@ -68,7 +72,23 @@
     input {
         text-align: right;
         border: none;
+
     }
 
+    #enableNotifications {
+        width: min-content;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
 
 </style>

@@ -18,14 +18,35 @@
     import Options from "@/components/Options.vue";
 
     const showOptions = ref(false);
+
+    const readOptions = () => {
+        const workTime = localStorage.getItem('workTime');
+        const shortBreakTime = localStorage.getItem('shortBreakTime');
+        const longBreakTime = localStorage.getItem('longBreakTime');
+        const turns = localStorage.getItem('turns');
+        const enableNotifications = localStorage.getItem('enableNotifications');
+        return { workTime, shortBreakTime, longBreakTime, turns, enableNotifications};
+    }
+
     const options = reactive({
-        workTime: 25,
-        shortBreakTime: 5,
-        longBreakTime: 15,
-        turns: 4
+        workTime: readOptions().workTime ? readOptions().workTime : 25,
+        shortBreakTime: readOptions().shortBreakTime ? readOptions().shortBreakTime : 5,
+        longBreakTime: readOptions().longBreakTime ? readOptions().longBreakTime : 15,
+        turns: readOptions().turns ? readOptions().turns : 4,
+        enableNotifications: readOptions().enableNotifications ? readOptions().enableNotifications : true,
     })
 
-    const timeRemain = ref(1500);
+
+    const saveOptions = () => {
+        localStorage.setItem('workTime', String(options.workTime));
+        localStorage.setItem('shortBreakTime', String(options.shortBreakTime));
+        localStorage.setItem('longBreakTime', String(options.longBreakTime));
+        localStorage.setItem('turns', String(options.turns));
+        localStorage.setItem('enableNotifications', String(options.enableNotifications));
+    }
+
+
+    const timeRemain = ref(options.workTime * 60);
     const isPaused = ref(true);
     const isWorking = ref(true);
     const turnCount = ref(0);
@@ -38,6 +59,22 @@
             }
         }
     }, 1000))
+
+
+    const sendNotification = () => {
+        // check if browser supports notifications
+        if ('Notification' in window) {
+            // check if user has granted permission to send notifications
+            if (Notification.permission !== 'granted') {
+                Notification.requestPermission();
+            } else {
+                // send notification
+                new Notification('Pomodoro Timer', {
+                    body: `Time to ${isWorking.value ? 'rest' : 'work'}!`,
+                });
+            }
+        }
+    }
 
     const curTime = computed(() => {
         const minutes = Math.floor(timeRemain.value / 60);
@@ -62,6 +99,7 @@
     }
 
     const nextState = () => {
+        sendNotification();
         isWorking.value = !isWorking.value;
         if (isWorking.value) {
             turnCount.value++;
@@ -78,6 +116,7 @@
     watch(() => options, () => {
         if(isPaused.value)
             resetTimer();
+        saveOptions();
     }, {deep: true})
 
     const windowTitle = computed(() => {
