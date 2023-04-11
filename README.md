@@ -2,6 +2,8 @@
 
 A simple pomodoro timer built with [Vue.js](https://vuejs.org/).
 
+[简体中文介绍](./README-zh_CN.md)
+
 ## Features
 
 - [x] Set a custom work and break time.
