@@ -72,6 +72,7 @@
     input {
         text-align: right;
         border: none;
+        background-color: #E5E5E5;
 
     }
 

@@ -142,9 +142,10 @@
 </script>
 
 <style>
-    * {
+    body {
         box-sizing: border-box;
         font-family: 'Product Sans', 'Roboto', sans-serif;
+        background-color: #E5E5E5;
     }
 
     #timer {
@@ -181,7 +182,7 @@
         width: 10rem;
         border: none;
         border-radius: 2rem;
-        background-color: #e6e6e6;
+        background-color: #dccdd1;
     }
 
     #buttons button:hover {

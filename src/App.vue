@@ -4,6 +4,7 @@
 </script>
 
 <template>
+    <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
     <Timer />
     <Footer />
 </template>
