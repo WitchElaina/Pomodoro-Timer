@@ -49,7 +49,7 @@
     const timeRemain = ref(options.workTime * 60);
     const isPaused = ref(true);
     const isWorking = ref(true);
-    const turnCount = ref(0);
+    const turnCount = ref(1);
 
     onMounted(setInterval(() => {
         if (!isPaused.value) {
@@ -93,7 +93,7 @@
         timeRemain.value = options.workTime * 60;
         isWorking.value = true;
         if(isPaused.value) {
-            turnCount.value = 0;
+            turnCount.value = 1;
         }
         isPaused.value = true;
     }
@@ -106,7 +106,7 @@
             turnCount.value++;
             timeRemain.value = options.workTime * 60;
         } else {
-            if (turnCount.value % options.turns === 0 && turnCount.value !== 0) {
+            if (turnCount.value % options.turns === 0 && turnCount.value !== 1) {
                 timeRemain.value = options.longBreakTime * 60;
             } else {
                 timeRemain.value = options.shortBreakTime * 60;

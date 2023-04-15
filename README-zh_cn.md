@@ -1,6 +1,5 @@
 # Pomodoro Timer
 
-> chatgpt 写的
 
 ## Demo
 
